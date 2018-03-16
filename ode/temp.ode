@@ -1,0 +1,11 @@
+# numerically compute PRC for theta model as sanity check
+
+x1'=1-cos(x1)+(1+cos(x1))*(a+b*sbar)
+
+p a=1,b=.5,sbar=0.34464645199
+
+global 1 x1-pi {x1=-pi}
+
+@ dt=.01
+
+d

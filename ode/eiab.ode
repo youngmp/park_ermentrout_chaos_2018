@@ -1,0 +1,13 @@
+par eps=1,del=.05
+ae'=2*ae*be+eps*del
+ai'=2*ai*bi+eps*del
+be'=be^2-ae^2+i+ge*se-gi*si
+bi'=bi^2-ai^2+i+ge*se-gi*si
+
+se'=eps*(-se+ae/pi)
+si'=eps*(-si+ai/pi)/tau
+par i=.2,ge=8,gi=6,tau=2
+init se=.6,si=.3
+init ae=2,ai=2.5,be=0,bi=0
+@ meth=cvode,total=500,tol=1e-10,atol=1e-10
+d

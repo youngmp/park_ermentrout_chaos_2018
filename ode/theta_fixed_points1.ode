@@ -1,0 +1,45 @@
+# fixed points when 
+# supercrit values
+# a1=.5;b1=7.;c1=6.5
+# a2=1.1;b2=25.;c2=25.1
+
+# look at psi1 = phix-phiz and psi2 = phiy-phiz
+
+table hxx hxx_a1=0.5_b1=7.0_c1=6.5_a2=1.1_b2=25.0_c2=25.1_eps=0.01_mux=1.0_muy=1.0.tab
+table hxy hxy_a1=0.5_b1=7.0_c1=6.5_a2=1.1_b2=25.0_c2=25.1_eps=0.01_mux=1.0_muy=1.0.tab
+table hyx hyx_a1=0.5_b1=7.0_c1=6.5_a2=1.1_b2=25.0_c2=25.1_eps=0.01_mux=1.0_muy=1.0.tab
+table hyy hyy_a1=0.5_b1=7.0_c1=6.5_a2=1.1_b2=25.0_c2=25.1_eps=0.01_mux=1.0_muy=1.0.tab
+
+# everything should be in [0,1)
+
+
+# replace the term hxx(px)+hxy(py+pz) with equation from rhs_phiz=0
+#repl=-(hyx(mod(-pz,1))+hyy(0)+hyx(mod(px-pz,1))+hyy(mod(py,1)))+hxx(0)+hxy(mod(pz,1))
+
+px'=hxx(mod(-px,per))-hxx(0)+hxx(0)-hxx(mod(px,per))+hxy(mod(-px+pz,per))/tau-hxy(mod(pz,per))/tau+hxy(mod(py-px+pz,per))/tau-hxy(mod(py+pz,per))/tau
+py'=hyx(mod(-py-pz,per))-hyx(mod(-pz,per))+hyy(mod(-py,per))/tau-hyy(0)/tau+hyx(mod(px-py-pz,per))-hyx(mod(px-pz,per))+hyy(0)/tau-hyy(mod(py,per))/tau
+pz'=hyx(mod(-pz,per))+hyy(0)/tau+hyx(mod(px-pz,per))+hyy(mod(py,per))/tau-hxx(0)-hxy(mod(pz,per))/tau-hxx(mod(px,per))-hxy(mod(py+pz,per))/tau
+
+p tau=1
+p per=3.70156211872
+
+global 1 px-1 {px=0}
+global 1 -px {px=1}
+
+global 1 py-1 {py=0}
+global 1 -py {py=1}
+
+global 1 pz-1 {pz=0}
+global 1 -pz {pz=1}
+
+aux p1=mod(px-pz,1)
+aux p2=mod(py-pz,1)
+
+px(0)=.1
+py(0)=.2
+pz(0)=.3
+
+@ xp=p1,yp=p2
+@ xlo=-.1,xhi=1.1
+@ ylo=-.1,yhi=1.1
+@ dt=.01,total=100

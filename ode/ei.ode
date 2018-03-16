@@ -1,0 +1,4 @@
+se'=-se+sqrt(max(0,i+ge*se-gi*si))/pi
+si'=(-si+sqrt(max(0,i+ge*se-gi*si))/pi)/tau
+par i=.2,ge=8,gi=6,tau=1
+d

@@ -1,0 +1,209 @@
+## Set file for averaged_tbwb.ode on Thu Aug 17 13:33:55 2017
+8   Number of equations and auxiliaries
+7   Number of parameters
+# Numerical stuff
+1    nout
+40    nullcline mesh
+3   Runge-Kutta
+15000  total
+0.05  DeltaT
+0  T0
+0  Transient
+100  Bound
+1e-12  DtMin
+1  DtMax
+0.001  Tolerance
+0.001  Abs. Tolerance
+0  Max Delay
+100   Eigenvector iterates
+0.001  Eigenvector tolerance
+0.001  Newton tolerance
+0  Poincare plane
+1e-05  Boundary value tolerance
+1e-05  Boundary value epsilon
+20   Boundary value iterates
+0   Poincare None
+1   Poincare variable
+1   Poincare sign
+0   Stop on Section
+0   Delay flag
+14999.99999992197  Current time
+14999.99999992197  Last Time
+1   MyStart
+1   INFLAG
+# Delays
+0.0
+0.0
+# Bndry conds
+0
+0
+# Old ICs
+0.05118270218372345  STB
+0.04957383498549461  SWB
+# Ending  ICs
+0.05861390809438922  STB
+0.05232885089239633  SWB
+# Parameters
+1  mutb
+23.5  muwb
+1  eps
+102  gee
+117.1  gei
+20  gie
+11  gii
+# Graphics
+0.7071097251469876  rm
+-0.4999999999826661  rm
+0.4999958366025518  rm
+0.7071038372138506  rm
+0.5000041633974482  rm
+-0.4999999999826661  rm
+0  rm
+0.7071038372138506  rm
+0.7071097251469876  rm
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+1    
+2    
+1    
+1    
+0    
+-1000   
+1000   
+0    
+0   3DFlag
+0   Timeflag
+0   Colorflag
+0   Type
+1  color scale
+0   minscale
+0.0624840222299099   xmax
+0.03897084668278694   xmin
+0.05254326388239861   ymax
+0.04801766201853752   ymin
+12   zmax
+-12   zmin
+0.05072743445634842   
+85.05869383706947   
+0.05028046295046806   
+441.9301697683301   
+0   
+0.08333333333333333   
+45   Theta
+45   Phi
+0    xshft
+0    yshft
+0    zshft
+0.03897084668278694   xlo
+0.04801766201853752   ylo
+0   
+0   
+0.0624840222299099   xhi
+0.05254326388239861   yhi
+0.1   
+0.1   
+# Transpose variables etc
+STB
+2   n columns
+1   n rows
+1   row skip
+1   col skip
+1   row 0
+# Coupling stuff for H funs
+0
+0
+# Array plot stuff
+
+1   NCols
+0   Row 1
+50   NRows
+8   RowSkip
+0  Zmin
+1  Zmax
+# Torus information 
+0    Torus flag 1=ON
+6.283185307179586  Torus period
+# Range information
+mutb
+-1   eq-range stab col
+0   shoot flag 1=on
+10   eq-range steps
+0  eq_range low
+1  eq_range high
+STB
+STB
+20   Range steps
+0   Cycle color 1=on
+1   Reset data 1=on
+1   Use old I.C.s 1=yes
+0  Par1 low
+0  Par2 low
+1  Par1 high
+1  Par2 high
+mutb
+0   BVP side
+0   color cycle flag 1=on
+10   BVP range steps
+0  BVP range low
+1  BVP range high
+RHS etc ...
+dSTB/dT=EPS*(-STB+FSTB(ITB))/MUTB
+dSWB/dT=EPS*(-SWB+FSWB(IWB))/MUWB
+ITBA=ITB
+IWBA=IWB
+FSTBA=FSTB(ITB)
+FSWBA=FSWB(IWB)
+ITA=IT
+I0A=I0
+
+where ...
+ITB = IT+GEE*STB-GEI*SWB   
+IWB = I0+GIE*STB-GII*SWB   
+FFIXED = .05   
+ITBFIXED = 6.03893379759   
+IWBFIXED = 0.809079373711   
+IT = ITBFIXED-FFIXED*(GEE-GEI)   
+I0 = IWBFIXED-FFIXED*(GIE-GII)   

@@ -1,0 +1,4 @@
+x'=-x+sqrt(max(0,a*x-b*y+c))/pi
+y'=(-y+sqrt(max(0,a*x-b*y+c))/pi)/tau
+par a=5,b=4,c=.5,tau=1
+d

@@ -1,0 +1,220 @@
+## Set file for wb.ode on Mon Sep 26 11:56:21 2016
+3   Number of equations and auxiliaries
+11   Number of parameters
+# Numerical stuff
+1    nout
+40    nullcline mesh
+8   Qual RK
+24.2  total
+0.01  DeltaT
+0  T0
+0  Transient
+10000  Bound
+1e-12  DtMin
+1  DtMax
+1e-05  Tolerance
+0.001  Abs. Tolerance
+0  Max Delay
+100   Eigenvector iterates
+0.001  Eigenvector tolerance
+0.001  Newton tolerance
+0  Poincare plane
+1e-05  Boundary value tolerance
+1e-05  Boundary value epsilon
+20   Boundary value iterates
+0   Poincare None
+1   Poincare variable
+1   Poincare sign
+0   Stop on Section
+0   Delay flag
+24.2  Current time
+24.2  Last Time
+1   MyStart
+1   INFLAG
+# Delays
+-64  
+0.78  
+0.09  
+# Bndry conds
+0
+0
+0
+# Old ICs
+25.17668533325195  V
+0.09292115271091461  H
+0.5464048981666565  N
+# Ending  ICs
+24.00665746944606  V
+0.1166254179445026  H
+0.4870605690951922  N
+# Parameters
+0.65  i0
+0  ip
+20  ton
+60  toff
+5  phi
+0.1  gL
+-65  EL
+35  gNa
+55  ENa
+9  gK
+-90  EK
+# Graphics
+0.7071097251469876  rm
+-0.4999999999826661  rm
+0.4999958366025516  rm
+0.7071038372138505  rm
+0.5000041633974482  rm
+-0.4999999999826661  rm
+0  rm
+0.7071038372138505  rm
+0.7071097251469876  rm
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+-1000   
+1000   
+0    
+0   3DFlag
+1   Timeflag
+0   Colorflag
+0   Type
+1  color scale
+0   minscale
+24.20000076293945   xmax
+0   xmin
+2.068124055862427   ymax
+-0.1196927279233932   ymin
+12   zmax
+-12   zmin
+12.10000038146973   
+0.08264462549368408   
+0.9742156639695168   
+0.9141533307643706   
+0   
+0.08333333333333333   
+45   Theta
+45   Phi
+0    xshft
+0    yshft
+0    zshft
+0   xlo
+-0.1196927279233932   ylo
+0   
+-90   
+24.20000076293945   xhi
+2.068124055862427   yhi
+30   
+30   
+# Transpose variables etc
+V
+2   n columns
+1   n rows
+1   row skip
+1   col skip
+1   row 0
+# Coupling stuff for H funs
+0
+0
+0
+# Array plot stuff
+
+1   NCols
+0   Row 1
+50   NRows
+8   RowSkip
+0  Zmin
+1  Zmax
+# Torus information 
+0    Torus flag 1=ON
+6.283185307179586  Torus period
+# Range information
+i0
+-1   eq-range stab col
+0   shoot flag 1=on
+10   eq-range steps
+0  eq_range low
+1  eq_range high
+V
+V
+20   Range steps
+0   Cycle color 1=on
+1   Reset data 1=on
+1   Use old I.C.s 1=yes
+0  Par1 low
+0  Par2 low
+1  Par1 high
+1  Par2 high
+i0
+0   BVP side
+0   color cycle flag 1=on
+10   BVP range steps
+0  BVP range low
+1  BVP range high
+RHS etc ...
+dV/dT=-GL*(V-EL)-GNA*(MINF^3)*H*(V-ENA)-GK*(N^4)*(V-EK)+I(T)
+dH/dT=PHI*(HINF-H)/TAUH
+dN/dT=PHI*(NINF-N)/TAUN
+
+where ...
+ALPHAM =  0.1*(V+35.0)/(1.0-EXP(-(V+35.0)/10.0))   
+BETAM =  4.0*EXP(-(V+60.0)/18.0)   
+MINF =  ALPHAM/(ALPHAM+BETAM)   
+ALPHAH =  0.07*EXP(-(V+58.0)/20.0)   
+BETAH =  1.0/(1.0+EXP(-(V+28.0)/10.0))   
+HINF =  ALPHAH/(ALPHAH+BETAH)   
+TAUH =  1.0/(ALPHAH+BETAH)   
+ALPHAN =  0.01*(V+34.0)/(1.0-EXP(-(V+34.0)/10.00))   
+BETAN =  0.125*EXP(-(V+44.0)/80.0)   
+NINF =  ALPHAN/(ALPHAN+BETAN)   
+TAUN =  1.0/(ALPHAN+BETAN)   
+
+User-defined functions:
+I(T) = I0+IP*HEAV(T-TON)*HEAV(TOFF-T)  

@@ -1,0 +1,49 @@
+# fixed points of traub, wang-buszaki. assuming \phi^y=0
+
+#table hxx h11_tbwb_eps=0.0025_mux=1.0_muy=1.0_gee=10.0_gei=24.0_gie=13.0_gii=10.0_N=2.tab
+#table hxy h12_tbwb_eps=0.0025_mux=1.0_muy=1.0_gee=10.0_gei=24.0_gie=13.0_gii=10.0_N=2.tab
+#table hyx h21_tbwb_eps=0.0025_mux=1.0_muy=1.0_gee=10.0_gei=24.0_gie=13.0_gii=10.0_N=2.tab
+#table hyy h22_tbwb_eps=0.0025_mux=1.0_muy=1.0_gee=10.0_gei=24.0_gie=13.0_gii=10.0_N=2.tab
+
+hxxa(x)=-0.202795667523*cos(1*2*pi*x/per)-0.0725604693117*sin(1*2*pi*x/per)-0.00148292073642*cos(2*2*pi*x/per)-0.0366398313165*sin(2*2*pi*x/per)+0.00409745449641*cos(3*2*pi*x/per)-0.00780934709169*sin(3*2*pi*x/per)+0.00197546736019*cos(4*2*pi*x/per)
+
+hxx(x)=hxxa(x)-0.00224877555534*sin(4*2*pi*x/per)+0.00197546736019*cos(-4*2*pi*x/per)+0.00224877555534*sin(-4*2*pi*x/per)+0.00409745449641*cos(-3*2*pi*x/per)+0.00780934709169*sin(-3*2*pi*x/per)-0.00148292073642*cos(-2*2*pi*x/per)+0.0366398313165*sin(-2*2*pi*x/per)-0.202795667523*cos(-1*2*pi*x/per)+0.0725604693117*sin(-1*2*pi*x/per)
+
+hxya(x)=0.283913934532*cos(1*2*pi*x/per)+0.101584657036*sin(1*2*pi*x/per)+0.00207608903099*cos(2*2*pi*x/per)+0.0512957638431*sin(2*2*pi*x/per)-0.00573643629497*cos(3*2*pi*x/per)
+
+hxy(x)=hxya(x)+0.0109330859284*sin(3*2*pi*x/per)-0.00573643629497*cos(-3*2*pi*x/per)-0.0109330859284*sin(-3*2*pi*x/per)+0.00207608903099*cos(-2*2*pi*x/per)-0.0512957638431*sin(-2*2*pi*x/per)+0.283913934532*cos(-1*2*pi*x/per)-0.101584657036*sin(-1*2*pi*x/per)
+
+hyxa(x)=0.00739984015196*cos(1*2*pi*x/per)-0.645702252381*sin(1*2*pi*x/per)+0.0601573274705*cos(2*2*pi*x/per)-0.110560558974*sin(2*2*pi*x/per)+0.0229388247268*cos(3*2*pi*x/per)-0.0396982260339*sin(3*2*pi*x/per)+0.00832508094211*cos(4*2*pi*x/per)-0.0192105796094*sin(4*2*pi*x/per)
+
+hyx(x)=hyxa(x)+0.00832508094211*cos(-4*2*pi*x/per)+0.0192105796094*sin(-4*2*pi*x/per)+0.0229388247268*cos(-3*2*pi*x/per)+0.0396982260339*sin(-3*2*pi*x/per)+0.0601573274705*cos(-2*2*pi*x/per)+0.110560558974*sin(-2*2*pi*x/per)+0.00739984015195*cos(-1*2*pi*x/per)+0.645702252381*sin(-1*2*pi*x/per)
+
+hyya(x)=-0.000569218473228*cos(1*2*pi*x/per)+0.0496694040293*sin(1*2*pi*x/per)-0.0046274867285*cos(2*2*pi*x/per)+0.00850465838264*sin(2*2*pi*x/per)-0.00176452497899*cos(3*2*pi*x/per)+0.00305370969491*sin(3*2*pi*x/per)
+
+hyy(x)=hyya(x)-0.00176452497899*cos(-3*2*pi*x/per)-0.00305370969491*sin(-3*2*pi*x/per)-0.0046274867285*cos(-2*2*pi*x/per)-0.00850465838264*sin(-2*2*pi*x/per)-0.000569218473227*cos(-1*2*pi*x/per)-0.0496694040293*sin(-1*2*pi*x/per)
+
+aux hxxaux=hxx(t)
+aux hxyaux=hxy(t)
+aux hyxaux=hyx(t)
+aux hyyaux=hyy(t)
+
+# everything should be in [0,20)
+
+# replace the term hxx(px)+hxy(py+pz) with equation from rhs_phiz=0
+#repl=-(hyx(mod(-pz,1))+hyy(0)+hyx(mod(px-pz,1))+hyy(mod(py,1)))+hxx(0)+hxy(mod(pz,1))
+
+px'=hxx(-px)-hxx(0)+hxx(0)-hxx(px)+hxy(-px+pz)/tau-hxy(pz)/tau+hxy(py-px+pz)/tau-hxy(py+pz)/tau
+#py'=hyx(mod(-py-pz,per))-hyx(mod(-pz,per))+hyy(mod(-py,per))/tau-hyy(0)/tau+hyx(mod(px-py-pz,per))-hyx(mod(px-pz,per))+hyy(0)/tau-hyy(mod(py,per))/tau
+pz'=hyx(-pz)+hyy(0)/tau+hyx(px-pz)+hyy(py)/tau-hxx(0)-hxy(pz)/tau-hxx(px)-hxy(py+pz)/tau
+
+p tau=1
+p per=20
+p py=0
+
+@ xp=px,yp=pz
+@ xlo=-1,xhi=21
+@ ylo=-1,yhi=21
+@ dt=.01,total=100
+
+@ Ds=0.05,Dsmin=0.001,Dsmax=0.1,parmin=1,parmax=10,xmin=1,xmax=20,ymin=0,ymax=20
+
+d

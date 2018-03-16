@@ -1,0 +1,33 @@
+# fixed points when 
+# degenerate mean field
+
+hxx1(x)=-0.202795667523*cos(1*2*pi*x/per)-0.0725604693117*sin(1*2*pi*x/per)-0.00148292073642*cos(2*2*pi*x/per)-0.0366398313165*sin(2*2*pi*x/per)+0.00409745449641*cos(3*2*pi*x/per)-0.00780934709169*sin(3*2*pi*x/per)+0.00197546736019*cos(4*2*pi*x/per)
+
+aa(x)=hxx1(x)-0.00224877555534*sin(4*2*pi*x/per)+0.00197546736019*cos(-4*2*pi*x/per)+0.00224877555534*sin(-4*2*pi*x/per)+0.00409745449641*cos(-3*2*pi*x/per)+0.00780934709169*sin(-3*2*pi*x/per)-0.00148292073642*cos(-2*2*pi*x/per)+0.0366398313165*sin(-2*2*pi*x/per)-0.202795667523*cos(-1*2*pi*x/per)+0.0725604693117*sin(-1*2*pi*x/per)
+
+aux aaa=aa(s)
+
+s'=1
+
+# everything should be in [0,20)
+
+#px'=aa(-px)-aa(0)+aa(0)-aa(px)+h12(-px+pz)/tau-h12(pz)/tau+h12(py-px+pz)/tau-h12(py+pz)/tau
+px'=0
+
+p tau=1
+p per=20
+
+#p py=0,pz=0
+
+#px(0)=1
+#py(0)=0
+#pz(0)=1.
+
+#@ xp=t,yp=px
+@ xlo=-1,xhi=21
+@ ylo=-1,yhi=21
+@ dt=.01,total=20
+
+#@ Ds=0.05,Dsmin=0.0001,Dsmax=0.1,parmin=1,parmax=10,xmin=1,xmax=20,ymin=0,ymax=20
+
+d

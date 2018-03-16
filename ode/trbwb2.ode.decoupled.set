@@ -1,0 +1,373 @@
+## Set file for trbwb2.ode on Sun Dec 25 06:16:14 2016
+22   Number of equations and auxiliaries
+39   Number of parameters
+# Numerical stuff
+1    nout
+40    nullcline mesh
+8   Qual RK
+20.3768  total
+0.01  DeltaT
+0  T0
+0  Transient
+10000  Bound
+1e-12  DtMin
+1  DtMax
+1e-05  Tolerance
+0.001  Abs. Tolerance
+0  Max Delay
+100   Eigenvector iterates
+0.001  Eigenvector tolerance
+0.001  Newton tolerance
+0  Poincare plane
+1e-05  Boundary value tolerance
+1e-05  Boundary value epsilon
+20   Boundary value iterates
+0   Poincare None
+1   Poincare variable
+1   Poincare sign
+0   Stop on Section
+0   Delay flag
+0  Current time
+0  Last Time
+0   MyStart
+0   INFLAG
+# Delays
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+# Bndry conds
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+# Old ICs
+42.68904  VT
+0.9935  MT
+0.4645  NT
+0.47785  HT
+0.268  WT
+0.2917  ST
+0.294  CA
+0  VTP
+0  MTP
+0  NTP
+0  HTP
+0  WTP
+0  STP
+0  CAP
+-64  V
+0.78  H
+0.09  N
+0  VP
+0  HP
+0  NP
+0.5  STR
+0.5  SWB
+# Ending  ICs
+0  VT
+0  MT
+0  NT
+0  HT
+0  WT
+0  ST
+0  CA
+0  VTP
+0  MTP
+0  NTP
+0  HTP
+0  WTP
+0  STP
+0  CAP
+0  V
+0  H
+0  N
+0  VP
+0  HP
+0  NP
+0  STR
+0  SWB
+# Parameters
+-100  ekt
+50  enat
+-67  elt
+120  eca
+0.2  glt
+80  gkt
+100  gnat
+0  gm
+1  ct
+0.5  gahp
+1  gca
+1  kd
+0.002  alpha
+80  tauca
+4  phit
+2.5  vshp
+-25  vlth
+2  vsshp
+-10  vthr
+0.1  betas
+2  alphas
+-35  vwt
+100  tauw
+5  phi
+0.1  gL
+-65  EL
+35  gNa
+55  ENa
+9  gK
+-90  EK
+1  mux
+1  muy
+0.01  eps
+5.95  it
+0.791454  i0
+0  gee
+0  gei
+0  gie
+0  gii
+# Graphics
+0.7071097251469876  rm
+-0.4999999999826661  rm
+0.4999958366025518  rm
+0.7071038372138506  rm
+0.5000041633974482  rm
+-0.4999999999826661  rm
+0  rm
+0.7071038372138506  rm
+0.7071097251469876  rm
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+0    
+15    
+1    
+1    
+0    
+-1000   
+1000   
+0    
+0   3DFlag
+1   Timeflag
+0   Colorflag
+0   Type
+1  color scale
+0   minscale
+30   xmax
+0   xmin
+30   ymax
+-90   ymin
+12   zmax
+-12   zmin
+15   
+0.06666666666666667   
+-30   
+0.01666666666666667   
+0   
+0.08333333333333333   
+45   Theta
+45   Phi
+0    xshft
+0    yshft
+0    zshft
+0   xlo
+-90   ylo
+0   
+-90   
+30   xhi
+30   yhi
+30   
+30   
+# Transpose variables etc
+VT
+2   n columns
+1   n rows
+1   row skip
+1   col skip
+1   row 0
+# Coupling stuff for H funs
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+# Array plot stuff
+
+1   NCols
+0   Row 1
+50   NRows
+8   RowSkip
+0  Zmin
+1  Zmax
+# Torus information 
+0    Torus flag 1=ON
+6.283185307179586  Torus period
+# Range information
+ekt
+-1   eq-range stab col
+0   shoot flag 1=on
+10   eq-range steps
+0  eq_range low
+1  eq_range high
+VT
+VT
+20   Range steps
+0   Cycle color 1=on
+1   Reset data 1=on
+1   Use old I.C.s 1=yes
+0  Par1 low
+0  Par2 low
+1  Par1 high
+1  Par2 high
+ekt
+0   BVP side
+0   color cycle flag 1=on
+10   BVP range steps
+0  BVP range low
+1  BVP range high
+RHS etc ...
+dVT/dT=-(ITRB(VT,MT,HT,NT)-(IT+GEE*STR-GEI*SWB)+I_CA(VT)+I_AHP(CA,VT)+I_M(VT,WT))/CT
+dMT/dT=AM(VT)*(1-MT)-BM(VT)*MT
+dNT/dT=AN(VT)*(1-NT)-BN(VT)*NT
+dHT/dT=AH(VT)*(1-HT)-BH(VT)*HT
+dWT/dT=(WINF(VT)-WT)/TW(VT)
+dST/dT=ALPHAS*(1-ST)/(1+EXP(-(VT-VTHR)/VSSHP))-BETAS*ST
+dCA/dT=(-ALPHA*I_CA(VT)-CA/TAUCA)
+dVTP/dT=-(ITRB(VTP,MTP,HTP,NTP)-(IT+GEE*STR-GEI*SWB)+I_CA(VTP)+I_AHP(CAP,VTP)+I_M(VTP,WTP))/CT
+dMTP/dT=AM(VTP)*(1-MTP)-BM(VTP)*MTP
+dNTP/dT=AN(VTP)*(1-NTP)-BN(VTP)*NTP
+dHTP/dT=AH(VTP)*(1-HTP)-BH(VTP)*HTP
+dWTP/dT=(WINF(VTP)-WTP)/TW(VTP)
+dSTP/dT=ALPHAS*(1-STP)/(1+EXP(-(VTP-VTHR)/VSSHP))-BETAS*STP
+dCAP/dT=(-ALPHA*I_CA(VTP)-CAP/TAUCA)
+dV/dT=-IWB(V,N)-GNA*(MINF(V)^3)*H*(V-ENA)+I0+GIE*STR-GII*SWB
+dH/dT=PHI*(HINF(V)-H)/TAUH(V)
+dN/dT=PHI*(NINF(V)-N)/TAUN(V)
+dVP/dT=-IWB(VP,NP)-GNA*(MINF(VP)^3)*HP*(VP-ENA)+I0+GIE*STR-GII*SWB
+dHP/dT=PHI*(HINF(VP)-HP)/TAUH(VP)
+dNP/dT=PHI*(NINF(VP)-NP)/TAUN(VP)
+dSTR/dT=EPS*(-STR)/MUX
+dSWB/dT=EPS*(-SWB)/MUY
+
+User-defined functions:
+ITRB(V,M,H,N) = GNAT*H*M^3*(V-ENAT)+(GKT*N^4)*(V-EKT)+GLT*(V-ELT)  
+AM(V) = .32*(54+V)/(1-EXP(-(V+54)/4))  
+BM(V) = .28*(V+27)/(EXP((V+27)/5)-1)  
+AH(V) = .128*EXP(-(50+V)/18)  
+BH(V) = 4/(1+EXP(-(V+27)/5))  
+AN(V) = .032*(V+52)/(1-EXP(-(V+52)/5))  
+BN(V) = .5*EXP(-(57+V)/40)  
+TW(VS) = TAUW/(3.3*EXP((VS-VWT)/20.0)+EXP(-(VS-VWT)/20.0))  
+WINF(VS) = 1.0/(1.0+EXP(-(VS-VWT)/10.0))  
+MLINF(VT) = 1/(1+EXP(-(VT-VLTH)/VSHP))  
+I_CA(VT) = GCA*MLINF(VT)*(VT-ECA)  
+I_AHP(CA,VT) = GAHP*(CA/(CA+KD))*(VT-EKT)  
+I_M(VT,WT) = GM*WT*(VT-EKT)  
+IWB(V,N) = GL*(V-EL)+GK*(N^4)*(V-EK)  
+ALPHAM(V) =  0.1*(V+35.0)/(1.0-EXP(-(V+35.0)/10.0))  
+BETAM(V) =  4.0*EXP(-(V+60.0)/18.0)  
+MINF(V) =  ALPHAM(V)/(ALPHAM(V)+BETAM(V))  
+ALPHAH(V) =  0.07*EXP(-(V+58.0)/20.0)  
+BETAH(V) =  1.0/(1.0+EXP(-(V+28.0)/10.0))  
+HINF(V) =  ALPHAH(V)/(ALPHAH(V)+BETAH(V))  
+TAUH(V) =  1.0/(ALPHAH(V)+BETAH(V))  
+ALPHAN(V) =  0.01*(V+34.0)/(1.0-EXP(-(V+34.0)/10.00))  
+BETAN(V) =  0.125*EXP(-(V+44.0)/80.0)  
+NINF(V) =  ALPHAN(V)/(ALPHAN(V)+BETAN(V))  
+TAUN(V) =  1.0/(ALPHAN(V)+BETAN(V))  

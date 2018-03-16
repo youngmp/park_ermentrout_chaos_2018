@@ -1,0 +1,13 @@
+@ total=20000, meth=discrete
+
+
+s'=s-dt*eps*s+eps*fr
+x[0..499]'=if(flag[j])then(-pi)else(x[j]p)
+x[0..499]p=x[j]+dt*(1-cos(x[j])+(1+cos(x[j]))*(a+g*s+sqrt(eps)*sigma*normal(0,1)/sqrt(dt)))
+flag[0..499]=(x[j]>pi)
+fr=sum(0,499)of(shift(flag0,i'))/500
+par eps=.01,sigma=1,a=3,g=-10
+par dt=.05
+x[0..499](0)=-pi+2*pi*ran(1)
+d
+

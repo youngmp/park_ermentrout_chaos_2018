@@ -1,0 +1,29 @@
+# n excitatory, n inhibitory, n sx, n sy.
+
+#par a=-.5,b=3
+#table w % 100 0 99 (a+b*cos(pi*t/50))/100
+
+x[0..99]'=((1-cos(x[j]))+(1+cos(x[j]))*f^2)*pi
+y[0..99]'=((1-cos(y[j]))+(1+cos(y[j]))*f^2)*pi
+
+f=sqrt(a+b*sum(0,99)of(shift(sx0,i'))/100-c*sum(0,99)of(shift(sy0,i'))/100)
+#f=sqrt(a+b*sum(0,99)of(w(i')*shift(sx0,i')))
+
+sx[0..99]'=-eps*sx[j]/mux
+sy[0..99]'=-eps*sy[j]/muy
+
+global 1 x[0..99]-pi {x[j]=-pi;sx[j]=sx[j]+eps/mux}
+global 1 y[0..99]-pi {y[j]=-pi;sy[j]=sy[j]+eps/muy}
+
+x[0..99](0)=sin([j]*4*pi/100)
+y[0..99](0)=sin(([j]+33)*2*pi/100)
+sx[0..99](0)=.3
+sy[0..99](0)=.7
+
+p a=.5,b=.5,c=.1
+p mux=1,muy=1
+p eps=.05
+
+@ dt=.01
+@ total=400
+@ seed=0

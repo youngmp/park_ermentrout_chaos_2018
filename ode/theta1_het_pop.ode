@@ -1,0 +1,39 @@
+# 1 excitatory, 1 inhibitory theta neurons
+# 
+
+x0'=((1-cos(x0))+(1+cos(x0))*f1^2)*pi
+y0'=((1-cos(y0))+(1+cos(y0))*f2^2)*pi
+
+f1=sqrt(max(a1+b1*sx-c1*sy,0))
+f2=sqrt(max(a2+b2*sx-c2*sy,0))
+
+p1=1/f1
+p2=1/f2
+
+aux f1a=f1
+aux f2a=f2
+
+sx'=-eps*sx/mux
+sy'=-eps*sy/muy
+
+global 1 x0-pi {x0=-pi;sx=sx+eps/mux}
+global 1 y0-pi {y0=-pi;sy=sy+eps/muy}
+
+# get phase values ?
+
+phx=atan(tan(x0/2)/f1)/(f1*pi)
+phy=atan(tan(y0/2)/f2)/(f2*pi)
+
+aux diff=mod(phy-phx+p2/2.,p2)-p2/2
+
+init x0=0,y0=0
+init sx=0,sy=0
+
+p a1=.5,b1=7.,c1=6.5
+p a2=1.1,b2=25.,c2=25.1
+
+p mux=1,muy=1
+p eps=.01
+
+@ dt=.001
+@ total=400

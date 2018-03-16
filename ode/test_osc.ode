@@ -1,0 +1,22 @@
+# trying out the system
+# \theta_1' = \omega + H_1(\theta_2-\theta_1) + H_2(\Omega t - \theta_1)
+# \theta_2' = \omega + H_1(\theta_1-\theta_2) + H_2(\Omega t - \theta_2)
+# where \Omega is much bigger than \omega.
+
+# If \Psi_i = \theta_i - \Omega t then
+# \Psi_1' = \omega - \Omega + H_2(-\Psi_1) + H_1(\Psi_2-\Psi_1)
+# \Psi_2' = \omega - \Omega
+
+th1'=oma+h1(th2-th1)+h2(omb*t-th1)
+th2'=oma+h1(th1-th2)+h2(omb*t-th2)
+
+h1(x)=h1p*sin(x)
+h2(x)=h2p*sin(x)
+
+global 1 th1-1 {th1=0}
+global 1 th2-1 {th2=0}
+
+p oma=1,omb=100
+p h1p=1,h2p=1
+
+@ dt=.01,total=100

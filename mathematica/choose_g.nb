@@ -1,0 +1,362 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     12476,        353]
+NotebookOptionsPosition[     11742,        326]
+NotebookOutlinePosition[     12078,        341]
+CellTagsIndexPosition[     12035,        338]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "This notebook has to do with the system\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SuperscriptBox["ds", "tb"], "dt"], "=", 
+    RowBox[{
+     RowBox[{"\[CurlyEpsilon]", "(", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["s", "tb"]}], "+", 
+       RowBox[{
+        SuperscriptBox["f", "tb"], "(", 
+        SuperscriptBox["I", "tb"], ")"}]}], ")"}], "/", 
+     SuperscriptBox["\[Mu]", "tb"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     SuperscriptBox["ds", "wb"], "dt"], "=", 
+    RowBox[{
+     RowBox[{"\[CurlyEpsilon]", "(", 
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["s", "wb"]}], "+", 
+       RowBox[{
+        SuperscriptBox["f", "wb"], "(", 
+        SuperscriptBox["I", "wb"], ")"}]}], ")"}], "/", 
+     SuperscriptBox["\[Mu]", "wb"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.711367763787519*^9, 3.711367871392166*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+  "Choose", " ", "coupling", " ", "parameters", " ", "for", " ", "wb", " ", 
+   "and", " ", "traub"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.6857131494978228`*^9, 3.685713159348008*^9}}],
+
+Cell[TextData[{
+ "The frequency of each oscillator is given by (using my python notation)\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"ftb", "(", 
+    RowBox[{"it", "+", 
+     RowBox[{"gee", "*", "str"}]}]}], TraditionalForm]]],
+ "- gei*swb) = ftb(itb) and\nfwb(i0 + ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"gie", "*"}], TraditionalForm]]],
+ "str- ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"gii", "*", "swb"}], TraditionalForm]]],
+ ") = fwb(iwb).\n\nFollowing the assumptions of the paper, we want ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     OverscriptBox["s", "_"], "tr"], "=", 
+    SuperscriptBox[
+     OverscriptBox["s", "_"], "wb"]}], TraditionalForm]]],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["f", "tb"], "(", 
+     SuperscriptBox["I", "tb"], ")"}], "=", 
+    RowBox[{
+     SuperscriptBox["f", "wb"], "(", 
+     SuperscriptBox["I", "wb"], ")"}]}], TraditionalForm]]],
+ ". In this case, recall that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["s", "_"], "=", "f"}], TraditionalForm]]],
+ ", i.e., the mean value of the slow variables is the same as the frequency \
+of the oscillators. "
+}], "Text",
+ CellChangeTimes->{{3.711287180984469*^9, 3.71128728931243*^9}, {
+  3.711287321904855*^9, 3.71128739718511*^9}, {3.711287464816822*^9, 
+  3.711287529168948*^9}, {3.711287561874296*^9, 3.711287563849256*^9}, {
+  3.711287632161244*^9, 3.7112876373242207`*^9}, {3.711287779475127*^9, 
+  3.71128783526552*^9}}],
+
+Cell["\<\
+To automate the process of picking the coupling parameters gee,gei,gie, and \
+gii, we import the FI curves for each oscillator and interpolate.\
+\>", "Text",
+ CellChangeTimes->{3.7112878384418507`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"import", " ", "fi", " ", "curve", " ", "data", " ", "files"}], 
+   " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"wbfidat", "=", 
+     RowBox[{"Transpose", "[", 
+      RowBox[{"Import", "[", 
+       RowBox[{
+       "\"\<~/Dropbox/youngmin-bard/thetaslowmod/code_and_data/wbfi.dat\>\"", 
+        ",", "\"\<Table\>\""}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   
+   RowBox[{
+    RowBox[{"tbfidat", "=", 
+     RowBox[{"Transpose", "[", 
+      RowBox[{"Import", "[", 
+       RowBox[{
+       "\"\<~/Dropbox/youngmin-bard/thetaslowmod/code_and_data/tbfi.dat\>\"", 
+        ",", "\"\<Table\>\""}], "]"}], "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.711287842665341*^9, 3.71128784444971*^9}, {
+  3.7112878805242968`*^9, 3.711287954513386*^9}, {3.71128804237792*^9, 
+  3.711288044228334*^9}, {3.7112880943236847`*^9, 3.711288094523963*^9}, {
+  3.711288175689864*^9, 3.711288176610413*^9}, {3.7112882578014507`*^9, 
+  3.711288290795673*^9}, {3.7112883941623907`*^9, 3.711288394363186*^9}, {
+  3.711288767595808*^9, 3.7112887699542713`*^9}, {3.711288822843894*^9, 
+  3.711288836463004*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"create", " ", "interpolating", " ", "fi", " ", "functions"}], " ",
+    "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"wbfi", "=", 
+     RowBox[{"Interpolation", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"wbfidat", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], ",", 
+         RowBox[{"wbfidat", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "//", " ", 
+       "Transpose"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tbfi", "=", 
+     RowBox[{"Interpolation", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"tbfidat", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], ",", 
+         RowBox[{"tbfidat", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "}"}], " ", "//", " ", 
+       "Transpose"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"create", " ", "inverse", " ", "fi", " ", "interpolations"}], " ",
+     "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"wbfiInv", "=", 
+     RowBox[{"Interpolation", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"wbfidat", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], ",", 
+         RowBox[{"wbfidat", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}], "}"}], " ", "//", " ", 
+       "Transpose"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tbfiInv", "=", 
+     RowBox[{"Interpolation", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"tbfidat", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], ",", 
+         RowBox[{"tbfidat", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}], "}"}], " ", "//", " ", 
+       "Transpose"}], "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.711288831889654*^9, 3.711288853194364*^9}, {
+  3.71128895147621*^9, 3.7112889946026173`*^9}, {3.711289222315772*^9, 
+  3.7112892526931753`*^9}}],
+
+Cell["\<\
+With these functions defined, we are ready to pick a desired mean frequency \
+and determine the coupling terms.\
+\>", "Text",
+ CellChangeTimes->{{3.7112895433787937`*^9, 3.7112895654047937`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "picked", " ", "desired", " ", "frequency", " ", "and", " ", "resulting", 
+    " ", "input", " ", "current"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "=", "0.05"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"itb", "=", 
+     RowBox[{"tbfiInv", "[", "f", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"iwb", "=", 
+     RowBox[{"wbfiInv", "[", "f", "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.711289571623361*^9, 3.71128957436399*^9}, {
+  3.711289605483323*^9, 3.7112896746785307`*^9}, {3.7112897280836143`*^9, 
+  3.711289736877372*^9}}],
+
+Cell["\<\
+Recalling that f is the same as the mean value of the slow variables, we \
+often interchange sbar with f.\
+\>", "Text",
+ CellChangeTimes->{{3.71128974201287*^9, 3.711289788621757*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"now", " ", "pick", " ", "appropriate", " ", "parameters", " ", 
+    RowBox[{"gkj", "'"}], "s"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{"itb", "==", 
+      RowBox[{"it", "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"gee", "-", "gei"}], ")"}], "f"}]}]}], ",", "it"}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{"iwb", "\[Equal]", 
+      RowBox[{"i0", "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"gie", "-", "gii"}], ")"}], "f"}]}]}], ",", "i0"}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.711289796072843*^9, 3.711289812316442*^9}, {
+   3.711289897813479*^9, 3.711289901583825*^9}, {3.711290057179798*^9, 
+   3.7112901270703297`*^9}, {3.711293752448195*^9, 3.7112937524725847`*^9}, {
+   3.711293851600376*^9, 3.7112938857328253`*^9}, {3.711293934616708*^9, 
+   3.711293952816492*^9}, {3.71129407128046*^9, 3.7112940715487013`*^9}, {
+   3.7112942166165743`*^9, 3.711294217958103*^9}, {3.711294267016534*^9, 
+   3.711294268952392*^9}, {3.711294311232748*^9, 3.711294318449872*^9}, 
+   3.711294451027053*^9, {3.711294511274988*^9, 3.711294511546104*^9}, {
+   3.711365972839007*^9, 3.7113659836158867`*^9}, {3.711366413808066*^9, 
+   3.711366414230769*^9}, {3.71136653544237*^9, 3.711366535807536*^9}, {
+   3.7113666503794394`*^9, 3.711366659342836*^9}, {3.711366763439355*^9, 
+   3.7113667667670383`*^9}, {3.711367343672062*^9, 3.711367346634198*^9}, {
+   3.711367380703622*^9, 3.711367404247713*^9}, {3.711367445912291*^9, 
+   3.71136745456791*^9}, {3.711367509616014*^9, 3.7113675179355907`*^9}, {
+   3.7113788835560417`*^9, 3.711378885372158*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{"it", "\[Rule]", 
+    RowBox[{
+     RowBox[{"-", "1.`"}], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", "6.041623042420188`"}], "+", 
+       RowBox[{"0.05`", " ", 
+        RowBox[{"(", 
+         RowBox[{"gee", "-", 
+          RowBox[{"1.`", " ", "gei"}]}], ")"}]}]}], ")"}]}]}], "}"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.711290100698299*^9, 3.7112901286509027`*^9}, 
+   3.7112937531577883`*^9, 3.711293852692157*^9, {3.711293883177732*^9, 
+   3.711293886160775*^9}, {3.7112939388291187`*^9, 3.7112939547236032`*^9}, 
+   3.711294073303089*^9, 3.711294218706664*^9, 3.711294269608017*^9, {
+   3.711294313411138*^9, 3.7112943189761868`*^9}, 3.7112944524839973`*^9, 
+   3.711294513626988*^9, {3.71136596582926*^9, 3.711365984778657*^9}, 
+   3.711366414547821*^9, 3.711366537312784*^9, 3.711366660778611*^9, 
+   3.7113667670314217`*^9, {3.711367347274651*^9, 3.711367404764632*^9}, 
+   3.711367455588312*^9, 3.711367518501121*^9, 3.711378886179557*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{"i0", "\[Rule]", 
+    RowBox[{
+     RowBox[{"-", "1.`"}], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", "0.8090769809225876`"}], "+", 
+       RowBox[{"0.05`", " ", 
+        RowBox[{"(", 
+         RowBox[{"gie", "-", 
+          RowBox[{"1.`", " ", "gii"}]}], ")"}]}]}], ")"}]}]}], "}"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.711290100698299*^9, 3.7112901286509027`*^9}, 
+   3.7112937531577883`*^9, 3.711293852692157*^9, {3.711293883177732*^9, 
+   3.711293886160775*^9}, {3.7112939388291187`*^9, 3.7112939547236032`*^9}, 
+   3.711294073303089*^9, 3.711294218706664*^9, 3.711294269608017*^9, {
+   3.711294313411138*^9, 3.7112943189761868`*^9}, 3.7112944524839973`*^9, 
+   3.711294513626988*^9, {3.71136596582926*^9, 3.711365984778657*^9}, 
+   3.711366414547821*^9, 3.711366537312784*^9, 3.711366660778611*^9, 
+   3.7113667670314217`*^9, {3.711367347274651*^9, 3.711367404764632*^9}, 
+   3.711367455588312*^9, 3.711367518501121*^9, 3.7113788861812572`*^9}]
+}, Open  ]],
+
+Cell["These equations are useful for getting ", "Text",
+ CellChangeTimes->{{3.71136817669629*^9, 3.7113681844884167`*^9}}]
+},
+WindowSize->{800, 848},
+WindowMargins->{{Automatic, -10}, {Automatic, 463}},
+FrontEndVersion->"10.2 for Linux x86 (64-bit) (July 29, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1021, 34, 97, "Text"],
+Cell[1582, 56, 229, 5, 32, "Input"],
+Cell[1814, 63, 1482, 45, 139, "Text"],
+Cell[3299, 110, 211, 4, 51, "Text"],
+Cell[3513, 116, 1180, 27, 209, "Input"],
+Cell[4696, 145, 1992, 56, 165, "Input"],
+Cell[6691, 203, 205, 4, 50, "Text"],
+Cell[6899, 209, 673, 17, 99, "Input"],
+Cell[7575, 228, 194, 4, 31, "Text"],
+Cell[CellGroupData[{
+Cell[7794, 236, 1748, 36, 77, "Input"],
+Cell[9545, 274, 1025, 22, 32, "Output"],
+Cell[10573, 298, 1028, 22, 89, "Output"]
+}, Open  ]],
+Cell[11616, 323, 122, 1, 31, "Text"]
+}
+]
+*)
+
+(* End of internal cache information *)

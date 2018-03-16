@@ -1,0 +1,31 @@
+# explore steady states in tbwb phase model in the case of slowly varying mean
+
+
+table hxx tbwb_hxx_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=101.5_gei=104.0_gie=13.0_gii=10.5_N=2.tab
+table hxy tbwb_hxy_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=101.5_gei=104.0_gie=13.0_gii=10.5_N=2.tab
+table hyx tbwb_hyx_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=101.5_gei=104.0_gie=13.0_gii=10.5_N=2.tab
+table hyy tbwb_hyy_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=101.5_gei=104.0_gie=13.0_gii=10.5_N=2.tab
+
+px'=hxx(mod(-px,per))-hxx(0)+hxx(0)-hxx(mod(px,per))+hxy(mod(-px+pz,per))/tau-hxy(mod(pz,per))/tau+hxy(mod(py-px+pz,per))/tau-hxy(mod(py+pz,per))/tau
+py'=hyx(mod(-py-pz,per))-hyx(mod(-pz,per))+hyy(mod(-py,per))/tau-hyy(0)/tau+hyx(mod(px-py-pz,per))-hyx(mod(px-pz,per))+hyy(0)/tau-hyy(mod(py,per))/tau
+#pz'=hyx(mod(-pz,per))+hyy(0)/tau+hyx(mod(px-pz,per))+hyy(mod(py,per))/tau-hxx(0)-hxy(mod(pz,per))/tau-hxx(mod(px,per))-hxy(mod(py+pz,per))/tau
+
+
+#sx' = eps*(-sx + f1(sx,sy))
+#sy' = eps*(-sy + f2(sx,sy))/tau
+#f1(x,y) = sqrt(max(0,a1 + b1*x - c1*y))
+#f2(x,y) = sqrt(max(0,a2 + b2*x - c2*y))
+
+
+p tau=1
+p per=20
+p pz=0
+
+@ xp=px,yp=py
+@ xlo=-1,xhi=21
+@ ylo=-1,yhi=21
+@ dt=.01,total=100
+
+@ Ds=0.01,Dsmin=0.00001,Dsmax=0.05,parmin=0,parmax=20
+
+d

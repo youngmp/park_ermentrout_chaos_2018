@@ -1,0 +1,23 @@
+par eps=.01,dt=.01,meth=euler
+table he % 100 0 99 ran(1)-.5
+table hi % 100 0 99 ran(1)-.5
+@ autoeval=0
+se'=-eps*se
+si'=-eps*si/tau
+par i=.2,ge=8,gi=6,tau=1
+par dele=0,deli=0
+f(u,i)=1-cos(u)+(1+cos(u))*i
+global 1 mod(the[0..99],2*pi)-pi {se=se+eps/100}
+global 1 mod(thi[0..99],2*pi)-pi {si=si+eps/(100*tau)}
+in=i+ge*se-gi*si
+the[0..99]'=f(the[j],in+dele*eps*he([j]))
+thi[0..99]'=f(thi[j],in+deli*eps*hi([j]))
+@ total=1000,bound=10000000000000000
+the[0..99](0)=ran(1)*2*pi
+thi[0..99](0)=ran(1)*2*pi
+aux sne1=sin(the1)
+aux sne30=sin(the30)
+aux sni1=sin(thi1)
+aux sni30=sin(thi30)
+
+d

@@ -1,0 +1,60 @@
+# 2 excitatory, 2 inhibitory theta neurons
+# 
+
+x1'=((1-cos(x1))+(1+cos(x1))*f1^2)*pi
+x2'=((1-cos(x2))+(1+cos(x2))*f1^2)*pi
+
+y1'=((1-cos(y1))+(1+cos(y1))*f2^2)*pi
+y2'=((1-cos(y2))+(1+cos(y2))*f2^2)*pi
+
+f1=sqrt(max(a1+b1*sx-c1*sy,0))
+f2=sqrt(max(a2+b2*sx-c2*sy,0))
+
+#f1=sqrt(a1+b1*sx-c1*sy)
+#f2=sqrt(a2+b2*sx-c2*sy)
+
+p1=1/f1
+p2=1/f2
+
+sx'=-eps*sx/mux
+sy'=-eps*sy/muy
+
+global 1 x1-pi {x1=-pi;sx=sx+eps/(2*mux)}
+global 1 x2-pi {x2=-pi;sx=sx+eps/(2*mux)}
+
+global 1 y1-pi {y1=-pi;sy=sy+eps/(2*muy)}
+global 1 y2-pi {y2=-pi;sy=sy+eps/(2*muy)}
+
+# get phase values ?
+
+#phx1=mod(atan(tan(x1/2)/f1)/(f1*pi)+p1/2,p1)-p1/2
+#phx2=mod(atan(tan(x2/2)/f1)/(f1*pi)+p1/2,p1)-p1/2
+
+#phy1=mod(atan(tan(y1/2)/f2)/(f2*pi)+p2/2,p2)-p2/2
+#phy2=mod(atan(tan(y2/2)/f2)/(f2*pi)+p2/2,p2)-p2/2
+
+#diffx=mod(phx2-phx1+p1/2,p1)-p1/2
+#diffy=mod(phy2-phy1+p2/2,p2)-p2/2
+
+#diffyx=diffy-diffx
+
+#diffxn=diffx/p1
+#diffyn=diffy/p2
+
+#aux diffxa=diffx
+#aux diffya=diffy
+
+#aux diffxna=diffxn
+#aux diffyna=diffyn
+
+init x1=0,y1=0,x2=0,y2=0
+init sx=0,sy=0
+
+p a1=.5,b1=7.,c1=6.5
+p a2=1.1,b2=25.,c2=25.1
+
+p mux=1,muy=1
+p eps=.01
+
+@ dt=.001
+@ total=400

@@ -1,0 +1,261 @@
+## Set file for traub_ca.ode on Mon Sep 26 11:56:48 2016
+9   Number of equations and auxiliaries
+24   Number of parameters
+# Numerical stuff
+1    nout
+40    nullcline mesh
+8   Qual RK
+25.4  total
+0.02  DeltaT
+0  T0
+0  Transient
+1000000  Bound
+1e-12  DtMin
+1  DtMax
+1e-05  Tolerance
+0.001  Abs. Tolerance
+0  Max Delay
+100   Eigenvector iterates
+0.001  Eigenvector tolerance
+0.001  Newton tolerance
+0  Poincare plane
+1e-05  Boundary value tolerance
+1e-05  Boundary value epsilon
+20   Boundary value iterates
+0   Poincare None
+1   Poincare variable
+1   Poincare sign
+0   Stop on Section
+0   Delay flag
+25.4  Current time
+25.4  Last Time
+1   MyStart
+1   INFLAG
+# Delays
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+# Bndry conds
+0
+0
+0
+0
+0
+0
+0
+# Old ICs
+46.57423400878906  V
+0.9652963280677795  M
+0.3722293674945831  N
+0.5881769061088562  H
+0.2063640058040619  W
+0.2135834395885468  S
+0.2857816219329834  CA
+# Ending  ICs
+39.77545476775317  V
+0.9961298071547866  M
+0.4925098109195025  N
+0.4446775695597419  H
+0.296518644980606  W
+0.3144905302410375  S
+0.2961526861353631  CA
+# Parameters
+-100  ek
+50  ena
+-67  el
+120  eca
+0.2  gl
+80  gk
+100  gna
+0  gm
+1  c
+5.854996145726557356995  i
+0.5  gahp
+1  gca
+1  kd
+0.002  alpha
+80  tauca
+4  phi
+2.5  vshp
+-25  vlth
+2  vsshp
+-10  vthr
+0.1  betas
+2  alphas
+-35  vwt
+100  tauw
+# Graphics
+0.7071097251469876  rm
+-0.4999999999826661  rm
+0.4999958366025516  rm
+0.7071038372138505  rm
+0.5000041633974482  rm
+-0.4999999999826661  rm
+0  rm
+0.7071038372138505  rm
+0.7071097251469876  rm
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+0    
+1    
+1    
+1    
+0    
+-1000   
+1000   
+0    
+0   3DFlag
+1   Timeflag
+0   Colorflag
+0   Type
+1  color scale
+0   minscale
+25.39999961853027   xmax
+0   xmin
+2.278220891952515   ymax
+-0.09645090997219086   ymin
+12   zmax
+-12   zmin
+12.69999980926514   
+0.0787401586628735   
+1.090884990990162   
+0.8422216486417076   
+0   
+0.08333333333333333   
+45   Theta
+45   Phi
+0    xshft
+0    yshft
+0    zshft
+0   xlo
+-0.09645090997219086   ylo
+0   
+-85   
+25.39999961853027   xhi
+2.278220891952515   yhi
+25   
+50   
+# Transpose variables etc
+V
+2   n columns
+1   n rows
+1   row skip
+1   col skip
+1   row 0
+# Coupling stuff for H funs
+0
+0
+0
+0
+0
+0
+0
+# Array plot stuff
+
+1   NCols
+0   Row 1
+50   NRows
+8   RowSkip
+0  Zmin
+1  Zmax
+# Torus information 
+0    Torus flag 1=ON
+6.283185307179586  Torus period
+# Range information
+ek
+-1   eq-range stab col
+0   shoot flag 1=on
+10   eq-range steps
+0  eq_range low
+1  eq_range high
+V
+V
+20   Range steps
+0   Cycle color 1=on
+1   Reset data 1=on
+1   Use old I.C.s 1=yes
+0  Par1 low
+0  Par2 low
+1  Par1 high
+1  Par2 high
+ek
+0   BVP side
+0   color cycle flag 1=on
+10   BVP range steps
+0  BVP range low
+1  BVP range high
+RHS etc ...
+dV/dT=-(ITRB(V,M,H,N)-I+I_CA+I_AHP+I_M)/C
+dM/dT=AM(V)*(1-M)-BM(V)*M
+dN/dT=AN(V)*(1-N)-BN(V)*N
+dH/dT=AH(V)*(1-H)-BH(V)*H
+dW/dT=(WINF(V)-W)/TW(V)
+dS/dT=ALPHAS*(1-S)/(1+EXP(-(V-VTHR)/VSSHP))-BETAS*S
+dCA/dT=(-ALPHA*I_CA-CA/TAUCA)
+IAHP=I_AHP
+IM=I_M
+
+where ...
+MLINF = 1/(1+EXP(-(V-VLTH)/VSHP))   
+I_CA = GCA*MLINF*(V-ECA)   
+I_AHP = GAHP*(CA/(CA+KD))*(V-EK)   
+I_M = GM*W*(V-EK)   
+
+User-defined functions:
+ITRB(V,M,H,N) = GNA*H*M^3*(V-ENA)+(GK*N^4)*(V-EK)+GL*(V-EL)
+
+AM(V) = .32*(54+V)/(1-EXP(-(V+54)/4))  
+BM(V) = .28*(V+27)/(EXP((V+27)/5)-1)  
+AH(V) = .128*EXP(-(50+V)/18)  
+BH(V) = 4/(1+EXP(-(V+27)/5))  
+AN(V) = .032*(V+52)/(1-EXP(-(V+52)/5))  
+BN(V) = .5*EXP(-(57+V)/40)  
+TW(VS) = TAUW/(3.3*EXP((VS-VWT)/20.0)+EXP(-(VS-VWT)/20.0))  
+WINF(VS) = 1.0/(1.0+EXP(-(VS-VWT)/10.0))  

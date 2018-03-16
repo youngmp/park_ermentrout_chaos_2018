@@ -1,0 +1,36 @@
+# fixed points when 
+# supercrit values
+# a1=.5;b1=7.;c1=6.5
+# a2=1.1;b2=25.;c2=25.1
+
+# look at psi1 = phix-phiz and psi2 = phiy-phiz
+
+hxx(x) = 2*0.00334672*cos(2*pi*x/per) - 2*0.54595706*sin(2*pi*x/per)
+hxy(x) =-2*0.00368139*cos(2*pi*x/per) + 2*0.60055277*sin(2*pi*x/per)
+hyx(x) = 2*0.00334672*cos(2*pi*x/per) - 2*0.54595706*sin(2*pi*x/per)
+hyy(x) =-2*0.00368139*cos(2*pi*x/per) + 2*0.60055277*sin(2*pi*x/per)
+
+# everything should be in [0,1)
+
+# replace the term hxx(px)+hxy(py+pz) with equation from rhs_phiz=0
+#repl=-(hyx(mod(-pz,1))+hyy(0)+hyx(mod(px-pz,1))+hyy(mod(py,1)))+hxx(0)+hxy(mod(pz,1))
+
+px'=hxx(-px)-hxx(0)+hxx(0)-hxx(px)+hxy(-px+pz)/tau-hxy(pz)/tau+hxy(py-px+pz)/tau-hxy(py+pz)/tau
+py'=hyx(-py-pz)-hyx(-pz)+hyy(-py)/tau-hyy(0)/tau+hyx(px-py-pz)-hyx(px-pz)+hyy(0)/tau-hyy(py)/tau
+pz'=hyx(-pz)+hyy(0)/tau+hyx(px-pz)+hyy(py)/tau-hxx(0)-hxy(pz)/tau-hxx(px)-hxy(py+pz)/tau
+
+p tau=1.9
+p per=3.70156211872
+p t0=0
+global 0 t-t0 {px=ran(1)*per;py=ran(1)*per;pz=ran(1)*per}
+p count=0
+aux n=count
+px(0)=.1
+py(0)=0
+pz(0)=.3
+aux ptau=tau
+@ xp=p1,yp=p2
+@ xlo=-.1,xhi=1.1
+@ ylo=-.1,yhi=1.1
+@ dt=.01,total=100,nout=100,trans=99.99,meth=euler
+d

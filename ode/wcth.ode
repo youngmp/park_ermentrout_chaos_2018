@@ -1,0 +1,17 @@
+f(u,i)=pi*(1-cos(u)+(1+cos(u))*i)
+ie=ae+be*se-ce*si
+ii=ai+bi*se-ci*si
+par ae=.5,be=7,ce=6.5
+par ai=1.1,bi=25,ci=25.1
+par eps=.005
+par tau=1.5
+se'=-se*eps
+si'=-si*eps/tau
+u'=f(u,ie)
+v'=f(v,ii)
+globa1 1 u-pi {u=-pi;se=se+eps}
+globa1 1 v-pi {v=-pi;si=si+eps/tau}
+init se=1,si=1
+init u=2
+@ total=2000
+d

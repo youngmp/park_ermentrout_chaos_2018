@@ -1,0 +1,34 @@
+# fixed points when 
+# homogeneous values 
+# try to follow fixed points A00, 0A0, and 00A
+
+
+hxx(x) = 2*0.00334672*cos(2*pi*x/per) - 2*0.54595706*sin(2*pi*x/per)
+hxy(x) =-2*0.00368139*cos(2*pi*x/per) + 2*0.60055277*sin(2*pi*x/per)
+hyx(x) = 2*0.00334672*cos(2*pi*x/per) - 2*0.54595706*sin(2*pi*x/per)
+hyy(x) =-2*0.00368139*cos(2*pi*x/per) + 2*0.60055277*sin(2*pi*x/per)
+
+# load dat file
+#table hxx hxx_fixed_a1=0.1_b1=1.0_c1=1.1_a2=0.1_b2=1.0_c2=1.1_eps=0.01_mux=1.0_muy=1.0.tab
+#table hxy hxy_fixed_a1=0.1_b1=1.0_c1=1.1_a2=0.1_b2=1.0_c2=1.1_eps=0.01_mux=1.0_muy=1.0.tab
+#table hyx hyx_fixed_a1=0.1_b1=1.0_c1=1.1_a2=0.1_b2=1.0_c2=1.1_eps=0.01_mux=1.0_muy=1.0.tab
+#table hyy hyy_fixed_a1=0.1_b1=1.0_c1=1.1_a2=0.1_b2=1.0_c2=1.1_eps=0.01_mux=1.0_muy=1.0.tab
+
+#py'=hyx(mod(-py-pz,per))-hyx(mod(-pz,per))+hyy(mod(-py,per))/tau-hyy(0)/tau+hyx(mod(0-py-pz,per))-hyx(mod(0-pz,per))+hyy(0)/tau-hyy(mod(py,per))/tau
+#pz'=hyx(mod(-pz,per))+hyy(0)/tau+hyx(mod(0-pz,per))+hyy(mod(py,per))/tau-hxx(0)-hxy(mod(pz,per))/tau-hxx(0)-hxy(mod(py+pz,per))/tau
+
+
+py'=hyx(-py-pz)-hyx(-pz)+hyy(-py)/tau-hyy(0)/tau+hyx(-py-pz)-hyx(-pz)+hyy(0)/tau-hyy(py)/tau
+pz'=hyx(-pz)+hyy(0)/tau+hyx(-pz)+hyy(py)/tau-hxx(0)-hxy(pz)/tau-hxx(0)-hxy(py+pz)/tau
+
+
+p tau=1
+p per=3.70156211872
+
+py(0)=0
+pz(0)=0
+
+@ xp=p1,yp=p2
+@ xlo=-.1,xhi=1.1
+@ ylo=-.1,yhi=1.1
+@ dt=.01,total=100

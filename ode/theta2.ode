@@ -1,0 +1,31 @@
+f1=sqrt(a1+b1*sx-c1*sy)
+f2=sqrt(a2+b2*sx-c2*sy)
+
+x1'=((1-cos(x1))+(1+cos(x1))*f1^2)*pi
+x2'=((1-cos(x2))+(1+cos(x2))*f1^2)*pi
+
+y1'=((1-cos(y1))+(1+cos(y1))*f2^2)*pi
+y2'=((1-cos(y2))+(1+cos(y2))*f2^2)*pi
+
+sx'=-eps*sx/mux
+sy'=-eps*sy/muy
+
+global 1 x1-pi {x1=-pi;sx=sx+eps/(2*mux)}
+global 1 x2-pi {x2=-pi;sx=sx+eps/(2*mux)}
+global 1 y1-pi {y1=-pi;sy=sy+eps/(2*muy)}
+global 1 y2-pi {y2=-pi;sy=sy+eps/(2*muy)}
+
+init x1=1.1,y1=1,x2=1.1,y2=1
+init sx=1,sy=1
+
+p a1=2,b1=5,c1=1
+p a2=2,b2=5,c2=1.1
+
+p mux=1,muy=1
+p eps=.01
+
+@ dt=.01
+@ total=400
+@ xp=sx,yp=sy
+@ xlo=.9,xhi=1.1
+@ ylo=.9,yhi=1.1

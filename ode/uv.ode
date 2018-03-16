@@ -1,0 +1,8 @@
+I=a+b*u-c*v
+f=sqrt(max(I,0))/pi
+par a=.2,b=6,c=5.5,tau=1
+u'=-u+f
+v'=(-v+f)/tau
+@ xp=u,yp=v,xlo=-.1,xhi=.5,ylo=-.1,yhi=.5
+@ nmesh=100,dt=.01
+d

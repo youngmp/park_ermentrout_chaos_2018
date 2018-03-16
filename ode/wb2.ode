@@ -1,0 +1,175 @@
+# 2 traub (exc) coupled to 2 wb (inh)
+
+
+
+# slow params
+par mux=1.,muy=1
+par eps=.005
+
+# coupling params (traub: it, wb: i0)
+# see choose_g.nb on how these parameters are chosen
+
+par gee=1,gei=2.1
+par gie=1,gii=2.1
+
+fFixed=.05
+#itbFixed=6.03893379759
+itbFixed=6.0415
+iwbFixed=0.809079373711
+#itbFixed=fstbInv(fFixed)
+#iwbFixed=fswbInv(fFixed)
+
+it=itbFixed-fFixed*(gee-gei)
+i0=iwbFixed-fFixed*(gie-gii)
+
+
+#par it=6.0965,i0=0.864079373711
+
+
+# START TRB
+
+# trb params
+
+par ekt=-100,enat=50,elt=-67,eca=120
+par glt=.2,gkt=80,gnat=100,gm=0
+par ct=1
+par gahp=0.5,gca=1,kd=1,alpha=.002,tauca=80,phit=4
+par vshp=2.5,vlth=-25,vsshp=2,vthr=-10
+# reyes set  vlth=-5,vsshp=10
+par betas=.1,alphas=2
+par vwt=-35,tauw=100
+#aux iahp=i_ahp
+#aux im=i_m
+
+
+# Trb 1
+itrb(v,m,h,n)=gnat*h*m^3*(v-enat)+(gkt*n^4)*(v-ekt)+glt*(v-elt)
+vt'=-(itrb(vt,mt,ht,nt) -(it+gee*str-gei*swb)+i_ca(vt)+i_ahp(ca,vt)+i_m(vt,wt))/ct
+mt'=am(vt)*(1-mt)-bm(vt)*mt
+nt'=an(vt)*(1-nt)-bn(vt)*nt
+ht'=ah(vt)*(1-ht)-bh(vt)*ht
+wt'=(winf(vt)-wt)/tw(vt)
+st'=alphas*(1-st)/(1+exp(-(vt-vthr)/vsshp))-betas*st
+
+# calcium
+ca'=(-alpha*i_ca(vt)-ca/tauca)
+
+
+# Trb 2
+vtp'=-(itrb(vtp,mtp,htp,ntp)-(it+gee*str-gei*swb)+i_ca(vtp)+i_ahp(cap,vtp)+i_m(vtp,wtp))/ct
+mtp'=am(vtp)*(1-mtp)-bm(vtp)*mtp
+ntp'=an(vtp)*(1-ntp)-bn(vtp)*ntp
+htp'=ah(vtp)*(1-htp)-bh(vtp)*htp
+wtp'=(winf(vtp)-wtp)/tw(vtp)
+stp'=alphas*(1-stp)/(1+exp(-(vtp-vthr)/vsshp))-betas*stp
+
+# trb calcium
+cap'=(-alpha*i_ca(vtp)-cap/tauca)
+
+# trb functions
+am(v)=.32*(54+v)/(1-exp(-(v+54)/4))
+bm(v)=.28*(v+27)/(exp((v+27)/5)-1)
+ah(v)=.128*exp(-(50+v)/18)
+bh(v)=4/(1+exp(-(v+27)/5))
+an(v)=.032*(v+52)/(1-exp(-(v+52)/5))
+bn(v)=.5*exp(-(57+v)/40)
+
+# trb time fns
+TW(vs)=tauw/(3.3*EXP((vs-vwt)/20.0)+EXP(-(vs-vwt)/20.0))
+WINF(vs)=1.0/(1.0+EXP(-(vs-vwt)/10.0))
+
+# trb calcium functions
+mlinf(vt)=1/(1+exp(-(vt-vlth)/vshp))
+i_ca(vt)=gca*mlinf(vt)*(vt-eca)
+i_ahp(ca,vt)=gahp*(ca/(ca+kd))*(vt-ekt)
+i_m(vt,wt)=gm*wt*(vt-ekt)
+
+
+# END TRB
+
+
+
+# START WB
+
+# wang buszaki params
+p phi=5.0
+p gL=0.1
+p EL=-65.0
+p gNa=35.0
+p ENa=55.0
+p gK=9.0
+p EK=-90.0
+
+# wb 1
+iwb(v,n)=gL*(v-EL)+gK*(n^4)*(v-EK)
+v'=-iwb(v,n)-gNa*(Minf(v)^3)*h*(v-ENa)+i0+gie*str-gii*swb
+h'=phi*(Hinf(v)-h)/tauH(v)
+n'=phi*(Ninf(v)-n)/tauN(v)
+
+# wb 2
+vp'=-iwb(vp,np)-gNa*(Minf(vp)^3)*hp*(vp-ENa)+i0+gie*str-gii*swb
+hp'=phi*(Hinf(vp)-hp)/tauH(vp)
+np'=phi*(Ninf(vp)-np)/tauN(vp)
+
+alpham(v) = 0.1*(v+35.0)/(1.0-exp(-(v+35.0)/10.0))
+betam(v)  = 4.0*exp(-(v+60.0)/18.0)
+Minf(v) = alpham(v)/(alpham(v)+betam(v))
+
+alphah(v) = 0.07*exp(-(v+58.0)/20.0)
+betah(v)  = 1.0/(1.0+exp(-(v+28.0)/10.0))
+Hinf(v) = alphah(v)/(alphah(v)+betah(v))
+tauH(v) = 1.0/(alphah(v)+betah(v))
+
+alphan(v) = 0.01*(v+34.0)/(1.0-exp(-(v+34.0)/10.00))
+betan(v)  = 0.125*exp(-(v+44.0)/80.0)
+Ninf(v) = alphan(v)/(alphan(v)+betan(v))
+tauN(v) = 1.0/(alphan(v)+betan(v))
+
+# END WB
+
+# BEGIN SX,SY (STR, SWB)
+str'=eps*(-str)/mux
+swb'=eps*(-swb)/muy
+
+global 1 vt-0 {str=str+eps/(2*mux)}
+global 1 vtp-0 {str=str+eps/(2*mux)}
+global 1 v-0 {swb=swb+eps/(2*muy)}
+global 1 vp-0 {swb=swb+eps/(2*muy)}
+
+# preliminary calculations in big nb#1 pg 47
+
+# TRB init
+init vtp=-90,mtp=0,ntp=0.2,htp=.8,wtp=.3,stp=.5,cap=.2,vt=42.68904,mt=.9935,nt=.4645,ht=.47785,wt=.268,st=.2917,ca=.294
+
+# WB init
+init v=-64,h=0.78,n=0.09,vp=-60,hp=.8,np=.1
+
+# slow init
+init str=.05,swb=.05
+
+#
+@ XP=T
+@ YP=V
+@ TOTAL=30
+@ DT=0.01,bound=10000
+@ METH=qualrk
+@ TOLER=0.00001
+@ MAXSTOR=100000
+@ XLO=0.0, XHI=30.0, YLO=-90.0, YHI=30.0
+done
+
+# old functions
+#alphah = 0.07*exp(-(V+58.0)/20.0)
+#betah  = 1.0/(1.0+exp(-(V+28.0)/10.0))
+#Hinf = alphah/(alphah+betah)
+#tauH = 1.0/(alphah+betah)
+
+#alpham = 0.1*(v+35.0)/(1.0-exp(-(v+35.0)/10.0))
+#betam  = 4.0*exp(-(v+60.0)/18.0)
+#Minf = alpham/(alpham+betam)
+
+#alphan(v) = 0.01*(V+34.0)/(1.0-exp(-(V+34.0)/10.00))
+#betan  = 0.125*exp(-(V+44.0)/80.0)
+#Ninf = alphan/(alphan+betan)
+#tauN = 1.0/(alphan+betan)
+

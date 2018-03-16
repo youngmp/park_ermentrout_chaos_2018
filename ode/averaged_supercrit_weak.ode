@@ -1,0 +1,32 @@
+# averaged system with all parameters
+
+sx' = eps*(-sx + f1(sx,sy))
+sy' = eps*(-sy + f2(sx,sy))/tau
+
+#f(sx,sy) = sqrt(max(0,a1 + b1*sx - c1*sy))/pi
+
+f1(x,y) = sqrt(max(0,a1 + b1*x - c1*y))
+f2(x,y) = sqrt(max(0,a2 + b2*x - c2*y))
+
+# supercrit values
+# a1=.5,b1=7.,c1=6.5,
+# a2=1.1,b2=25.,c2=25.1,
+
+p a1=0.5,b1=7,c1=6.5
+p a2=1.1,b2=25,c2=25.1
+p eps=.01
+
+# double roots but no hopf, only stability
+#p a1=.2,b1=1.4,c1=.6
+#p a2=1.1,b2=2,c2=2.1
+
+p tau=3.
+#p a1=.5,b1=7,c1=6.5
+#p a2=1.1,b2=25,c2=25.1
+# p eps=.005
+aux frx=f1(sx,sy)
+aux fry=f2(sx,sy)
+
+@ xp=sx,yp=sy,xlo=-.1,xhi=8,ylo=-.1,yhi=8
+@ nmesh=100,dt=.005,total=100
+d

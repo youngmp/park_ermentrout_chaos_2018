@@ -1,0 +1,22 @@
+# fixed points when 
+# homogeneous values 
+# try to follow fixed points A00, 0A0, and 00A
+
+# load dat file
+
+hxx(x) = 2*0.00334672*cos(2*pi*x/per) - 2*0.54595706*sin(2*pi*x/per)
+hxy(x) =-2*0.00368139*cos(2*pi*x/per) + 2*0.60055277*sin(2*pi*x/per)
+hyx(x) = 2*0.00334672*cos(2*pi*x/per) - 2*0.54595706*sin(2*pi*x/per)
+hyy(x) =-2*0.00368139*cos(2*pi*x/per) + 2*0.60055277*sin(2*pi*x/per)
+
+px'=hxx(-px)-hxx(0)+hxx(0)-hxx(px)+hxy(-px)/tau-hxy(0)/tau+hxy(py-px)/tau-hxy(py)/tau
+py'=hyx(-py)-hyx(0)+hyy(-py)/tau-hyy(0)/tau+hyx(px-py)-hyx(px)+hyy(0)/tau-hyy(py)/tau
+
+p tau=1
+p per=3.70156211872
+
+
+@ xp=px,yp=py
+@ xlo=-.1,xhi=4.
+@ ylo=-.1,yhi=4.
+@ dt=.01,total=100

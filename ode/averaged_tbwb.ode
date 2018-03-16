@@ -1,0 +1,49 @@
+# mean field model for trab+ca and wang-buszaki system
+# TODO: create polynomial approximations to tbfi2,wbfi.tab
+
+# load tables for frequency-current functions
+#table fstb tbfi2.tab
+#table fswb wbfi.tab
+
+fstb(x)=-0.0347852888226*x^0+0.186873169095*x^1-0.409677440916*x^2+0.54289364772*x^3-0.468257572487*x^4+0.279190605143*x^5-0.119326576663*x^6+0.0373899858244*x^7-0.00869727639496*x^8+0.00150788546107*x^9-0.000193974777049*x^10+1.82423993796e-05*x^11-1.21770558233e-06*x^12+5.4610481018e-08*x^13-1.47481489996e-09*x^14+1.8118842417e-11*x^15
+
+fswb(x)=-0.508521266473*x^0+11.4772506459*x^1-116.083294553*x^2+701.459125254*x^3-2807.76852323*x^4+7890.50478887*x^5-16113.4348453*x^6+24406.8284532*x^7-27715.558749*x^8+23654.0088034*x^9-15084.462889*x^10+7074.60540046*x^11-2367.01538907*x^12+534.389241681*x^13-72.9226220434*x^14+4.54148967685*x^15
+
+itb=it+gee*stb-gei*swb
+iwb=i0+gie*stb-gii*swb
+
+stb'=eps*(-stb+fstb(itb))/mutb
+swb'=eps*(-swb+fswb(iwb))/muwb
+
+# currents for plotting
+aux itba=itb
+aux iwba=iwb
+
+# frequency functions for plotting
+aux fstba=fstb(itb)
+aux fswba=fswb(iwb)
+
+# slow params
+p mutb=1,muwb=23.5
+p eps=1
+
+fFixed=.05
+itbFixed=6.03893379759
+iwbFixed=0.809079373711
+#itbFixed=fstbInv(fFixed)
+#iwbFixed=fswbInv(fFixed)
+
+it=itbFixed-fFixed*(gee-gei)
+i0=iwbFixed-fFixed*(gie-gii)
+
+# coupling params
+#p it=6.54162,i0=.359077
+p gee=102,gei=117.1
+p gie=20,gii=11
+
+@ xp=stb,yp=swb
+@ xlo=0,xhi=.1
+@ ylo=0,yhi=.1
+
+
+d

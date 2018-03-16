@@ -1,0 +1,26 @@
+# look at phase line dynamics in slowly varying mean.
+
+
+
+# look at psi1 = phix-phiz and psi2 = phiy-phiz
+
+table hxx hxx_a1=0.5_b1=7.0_c1=6.5_a2=1.1_b2=25.0_c2=25.1_eps=0.01_mux=1.0_muy=1.0.tab
+table hxy hxy_a1=0.5_b1=7.0_c1=6.5_a2=1.1_b2=25.0_c2=25.1_eps=0.01_mux=1.0_muy=1.0.tab
+table hyx hyx_a1=0.5_b1=7.0_c1=6.5_a2=1.1_b2=25.0_c2=25.1_eps=0.01_mux=1.0_muy=1.0.tab
+table hyy hyy_a1=0.5_b1=7.0_c1=6.5_a2=1.1_b2=25.0_c2=25.1_eps=0.01_mux=1.0_muy=1.0.tab
+
+px'=hxx(mod(-px,per))-hxx(0)+hxx(0)-hxx(mod(px,per))+hxy(mod(-px+pz,per))/tau-hxy(mod(pz,per))/tau+hxy(mod(py-px+pz,per))/tau-hxy(mod(py+pz,per))/tau
+py'=hyx(mod(-py-pz,per))-hyx(mod(-pz,per))+hyy(mod(-py,per))/tau-hyy(0)/tau+hyx(mod(px-py-pz,per))-hyx(mod(px-pz,per))+hyy(0)/tau-hyy(mod(py,per))/tau
+pz'=hyx(mod(-pz,per))+hyy(0)/tau+hyx(mod(px-pz,per))+hyy(mod(py,per))/tau-hxx(0)-hxy(mod(pz,per))/tau-hxx(mod(px,per))-hxy(mod(py+pz,per))/tau
+
+
+sx' = eps*(-sx + f1(sx,sy))
+sy' = eps*(-sy + f2(sx,sy))/tau
+
+f1(x,y) = sqrt(max(0,a1 + b1*x - c1*y))
+f2(x,y) = sqrt(max(0,a2 + b2*x - c2*y))
+
+
+p a1=0.5,b1=7,c1=6.5
+p a2=1.1,b2=25,c2=25.1
+p eps=.01

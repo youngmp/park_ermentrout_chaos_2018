@@ -1,0 +1,24 @@
+# fixed points when 
+# homogeneous values 
+# try to follow fixed points A00, 0A0, and 00A
+
+# load dat file
+#table hxx hxx_fixed_a1=0.1_b1=1.0_c1=1.1_a2=0.1_b2=1.0_c2=1.1_eps=0.01_mux=1.0_muy=1.0.tab
+#table hxy hxy_fixed_a1=0.1_b1=1.0_c1=1.1_a2=0.1_b2=1.0_c2=1.1_eps=0.01_mux=1.0_muy=1.0.tab
+#table hyx hyx_fixed_a1=0.1_b1=1.0_c1=1.1_a2=0.1_b2=1.0_c2=1.1_eps=0.01_mux=1.0_muy=1.0.tab
+#table hyy hyy_fixed_a1=0.1_b1=1.0_c1=1.1_a2=0.1_b2=1.0_c2=1.1_eps=0.01_mux=1.0_muy=1.0.tab
+
+hxx(x) = 2*0.00334672*cos(2*pi*x/per) - 2*0.54595706*sin(2*pi*x/per)
+hxy(x) =-2*0.00368139*cos(2*pi*x/per) + 2*0.60055277*sin(2*pi*x/per)
+hyx(x) = 2*0.00334672*cos(2*pi*x/per) - 2*0.54595706*sin(2*pi*x/per)
+hyy(x) =-2*0.00368139*cos(2*pi*x/per) + 2*0.60055277*sin(2*pi*x/per)
+
+pxa00'=hxx(-pxa00)-hxx(0)+hxx(0)-hxx(pxa00)+hxy(-pxa00)/tau-hxy(0)/tau+hxy(-pxa00)/tau-hxy(0)/tau
+
+p tau=1
+p per=3.70156211872
+
+@ xp=t,yp=pxa00
+@ xlo=-.1,xhi=1.1
+@ ylo=-.1,yhi=1.1
+@ dt=.01,total=100

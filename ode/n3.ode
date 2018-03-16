@@ -1,0 +1,13 @@
+wiener w[1..3],z[j]
+par sig=.01
+x[1..3]'=1-cos(x[j])+(1+cos(x[j]))*(a+b*u-c*v+sig*w[j])
+y[1..3]'=1-cos(x[j])+(1+cos(y[j]))*(a+b*u-c*v+sig*z[j])
+u'=-eps*u
+v'=-eps*v/tau
+global 1 x[1..3]-pi {x[j]=-pi;u=u+eps/3}
+global 1 y[1..3]-pi {y[j]=-pi;v=u+eps/(3*tau)}
+par a=.2,b=6,c=5.5,tau=2
+par eps=.02
+init x1=0,y1=1,x2=2.5,y2=-1.5,x3=1.9,y3=-2.6
+@ total=500,meth=euler
+d

@@ -1,0 +1,39 @@
+# 2 excitatory, 2 inhibitory theta neurons
+# heterogeneity in population
+
+# python unif random vars on [-1,1] with random seed=0. [0.09762701 0.43037873 0.20552675 0.08976637]
+
+Gx0=eps*0.09762701*(1+cos(x0))
+Gx1=eps*0.43037873*(1+cos(x1))
+
+Gy0=eps*0.20552675*(1+cos(y0))
+Gy1=eps*0.08976637*(1+cos(y1))
+
+x[0..1]'=(1-cos(x[j])+Gx[j]+(1+cos(x[j]))*(a1+b1*sx-c1*sy))*pi
+y[0..1]'=(1-cos(y[j])+Gy[j]+(1+cos(y[j]))*(a2+b2*sx-c2*sy))*pi
+
+sx'=-eps*sx/mux
+sy'=-eps*sy/muy
+
+global 1 x[0..1]-pi {x[j]=-pi;sx=sx+eps/(2*mux)}
+global 1 y[0..1]-pi {y[j]=-pi;sy=sy+eps/(2*muy)}
+
+init sx=1,sy=1
+x[0..1](0)=1.1
+y[0..1](0)=1
+
+#supercrit
+p a1=.5,b1=7,c1=6.5
+p a2=1.1,b2=25,c2=25.1
+
+#p a1=2,b1=5,c1=1
+#p a2=2,b2=5,c2=1.1
+
+p mux=1,muy=1
+p eps=.01
+
+@ dt=.01
+@ total=1000
+@ xp=sx,yp=sy
+@ xlo=.9,xhi=1.1
+@ ylo=.9,yhi=1.1

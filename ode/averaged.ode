@@ -1,0 +1,19 @@
+# averaged system with all parameters
+
+sx' = eps*(-sx + f(sx,sy))
+sy' = eps*(-sy + f(sx,sy))/tau
+
+f(sx,sy) = sqrt(max(0,a + b*sx - c*sy))/pi
+#f(sx,sy) = sqrt(a + b*sx - c*sy)
+
+#a=1.8,b=1.2,c=10 with mu \in [10,20] gives subcritical hopf with nonzero limit cycle.
+# a=1,b=5,c=10 with tau=5.77
+
+p tau=10
+p a=1.8,b=1.2,c=10
+p eps=.005
+
+
+@ xp=sx,yp=sy,xlo=-.1,xhi=1,ylo=-.1,yhi=1
+@ nmesh=100,dt=.005,total=1000,maxstor=10000000
+d

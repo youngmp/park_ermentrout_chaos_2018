@@ -1,0 +1,20 @@
+x1'=((1-cos(x1))+(1+cos(x1))*f)*pi
+y1'=((1-cos(y1))+(1+cos(y1))*f)*pi
+
+f=a+b*sx-c*sy
+
+sx'=-eps*sx/mux
+sy'=-eps*sy/muy
+
+global 1 x1-pi {x1=-pi;sx=sx+eps/mux}
+global 1 y1-pi {y1=-pi;sy=sy+eps/muy}
+
+init x1=0,y1=0
+init sx=0,sy=0
+
+p a=2,b=5,c=1
+p mux=1,muy=1
+p eps=.01
+
+@ dt=.01
+@ total=1000

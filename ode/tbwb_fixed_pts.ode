@@ -1,0 +1,90 @@
+# fixed points when 
+# degenerate mean field
+
+#table hxx tbwb_hxx_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=50.0_gei=54.0_gie=13.0_gii=10.0_N=2.tab
+#table hxy tbwb_hxy_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=50.0_gei=54.0_gie=13.0_gii=10.0_N=2.tab
+#table hyx tbwb_hyx_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=50.0_gei=54.0_gie=13.0_gii=10.0_N=2.tab
+#table hyy tbwb_hyy_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=50.0_gei=54.0_gie=13.0_gii=10.0_N=2.tab
+
+# everything should be in [0,1)
+
+# replace the term hxx(px)+hxy(py+pz) with equation from rhs_phiz=0
+#repl=-(hyx(mod(-pz,1))+hyy(0)+hyx(mod(px-pz,1))+hyy(mod(py,1)))+hxx(0)+hxy(mod(pz,1))
+
+px'=hxx(mod(-px,per))-hxx(0)+hxx(0)-hxx(mod(px,per))+hxy(mod(-px+pz,per))/tau-hxy(mod(pz,per))/tau+hxy(mod(py-px+pz,per))/tau-hxy(mod(py+pz,per))/tau
+py'=hyx(mod(-py-pz,per))-hyx(mod(-pz,per))+hyy(mod(-py,per))/tau-hyy(0)/tau+hyx(mod(px-py-pz,per))-hyx(mod(px-pz,per))+hyy(0)/tau-hyy(mod(py,per))/tau
+pz'=hyx(mod(-pz,per))+hyy(0)/tau+hyx(mod(px-pz,per))+hyy(mod(py,per))/tau-hxx(0)-hxy(mod(pz,per))/tau-hxx(mod(px,per))-hxy(mod(py+pz,per))/tau
+
+
+hxxa(x)=-7.08955747047e-05*cos(0*2*pi*x/per)-0.0*sin(0*2*pi*x/per)-0.202795667523*cos(1*2*pi*x/per)-0.0725604693117*sin(1*2*pi*x/per)-0.00148292073642*cos(2*2*pi*x/per)-0.0366398313165*sin(2*2*pi*x/per)+0.00409745449641*cos(3*2*pi*x/per)
+
+hxxb(x)=-0.00780934709169*sin(3*2*pi*x/per)+0.00197546736019*cos(4*2*pi*x/per)-0.00224877555534*sin(4*2*pi*x/per)+0.000935337707629*cos(5*2*pi*x/per)-0.000842820549328*sin(5*2*pi*x/per)+0.000470847004031*cos(6*2*pi*x/per)-0.000369605241819*sin(6*2*pi*x/per)+0.000248907947718*cos(7*2*pi*x/per)-0.000173765104158*sin(7*2*pi*x/per)
+
+hxxc(x)=0.000135765175724*cos(8*2*pi*x/per)-8.00588710022e-05*sin(8*2*pi*x/per)+7.5547553658e-05*cos(9*2*pi*x/per)-3.05724966816e-05*sin(9*2*pi*x/per)+4.28038215367e-05*cos(10*2*pi*x/per)-2.79640273226e-06*sin(10*2*pi*x/per)+4.28038215367e-05*cos(-10*2*pi*x/per)+2.79640273224e-06*sin(-10*2*pi*x/per)+7.55475536581e-05*cos(-9*2*pi*x/per)
+
+hxxd(x)=3.05724966816e-05*sin(-9*2*pi*x/per)+0.000135765175724*cos(-8*2*pi*x/per)+8.00588710022e-05*sin(-8*2*pi*x/per)+0.000248907947718*cos(-7*2*pi*x/per)+0.000173765104158*sin(-7*2*pi*x/per)+0.000470847004031*cos(-6*2*pi*x/per)+0.000369605241819*sin(-6*2*pi*x/per)+0.00093533770763*cos(-5*2*pi*x/per)
+
+hxx(x)=hxxa(x)+hxxb(x)+hxxc(x)+hxxd(x)+0.000842820549328*sin(-5*2*pi*x/per)+0.00197546736019*cos(-4*2*pi*x/per)+0.00224877555534*sin(-4*2*pi*x/per)+0.00409745449641*cos(-3*2*pi*x/per)+0.00780934709169*sin(-3*2*pi*x/per)-0.00148292073642*cos(-2*2*pi*x/per)+0.0366398313165*sin(-2*2*pi*x/per)-0.202795667523*cos(-1*2*pi*x/per)+0.0725604693117*sin(-1*2*pi*x/per)
+
+hxya(x)=0.000170149379291*cos(0*2*pi*x/per)-0.0*sin(0*2*pi*x/per)+0.486709602054*cos(1*2*pi*x/per)+0.174145126348*sin(1*2*pi*x/per)+0.0035590097674*cos(2*2*pi*x/per)+0.0879355951597*sin(2*2*pi*x/per)-0.00983389079137*cos(3*2*pi*x/per)+0.0187424330201*sin(3*2*pi*x/per)-0.00474112166445*cos(4*2*pi*x/per)+0.00539706133281*sin(4*2*pi*x/per)
+
+hxyb(x)=-0.00224481049831*cos(5*2*pi*x/per)+0.00202276931839*sin(5*2*pi*x/per)-0.00113003280967*cos(6*2*pi*x/per)+0.000887052580365*sin(6*2*pi*x/per)-0.000597379074524*cos(7*2*pi*x/per)+0.000417036249978*sin(7*2*pi*x/per)-0.000325836421737*cos(8*2*pi*x/per)+0.000192141290405*sin(8*2*pi*x/per)-0.000181314128779*cos(9*2*pi*x/per)
+
+hxyc(x)=7.33739920359e-05*sin(9*2*pi*x/per)-0.000102729171688*cos(10*2*pi*x/per)+6.71136655742e-06*sin(10*2*pi*x/per)-0.000102729171688*cos(-10*2*pi*x/per)-6.71136655737e-06*sin(-10*2*pi*x/per)-0.000181314128779*cos(-9*2*pi*x/per)-7.33739920358e-05*sin(-9*2*pi*x/per)
+
+hxyd(x)=-0.000325836421737*cos(-8*2*pi*x/per)-0.000192141290405*sin(-8*2*pi*x/per)-0.000597379074524*cos(-7*2*pi*x/per)-0.000417036249978*sin(-7*2*pi*x/per)-0.00113003280967*cos(-6*2*pi*x/per)-0.000887052580365*sin(-6*2*pi*x/per)-0.00224481049831*cos(-5*2*pi*x/per)-0.00202276931839*sin(-5*2*pi*x/per)
+
+hxy(x)=hxya(x)+hxyb(x)+hxyc(x)+hxyd(x)-0.00474112166445*cos(-4*2*pi*x/per)-0.00539706133281*sin(-4*2*pi*x/per)-0.00983389079137*cos(-3*2*pi*x/per)-0.0187424330201*sin(-3*2*pi*x/per)+0.0035590097674*cos(-2*2*pi*x/per)-0.0879355951597*sin(-2*2*pi*x/per)+0.486709602054*cos(-1*2*pi*x/per)-0.174145126348*sin(-1*2*pi*x/per)
+
+hyxa(x)=0.00739984015196*cos(1*2*pi*x/per)-0.645702252381*sin(1*2*pi*x/per)+0.0601573274705*cos(2*2*pi*x/per)-0.110560558974*sin(2*2*pi*x/per)+0.0229388247268*cos(3*2*pi*x/per)-0.0396982260339*sin(3*2*pi*x/per)+0.00832508094211*cos(4*2*pi*x/per)
+hyxb(x)=-0.0192105796094*sin(4*2*pi*x/per)+0.00234539031317*cos(5*2*pi*x/per)-0.0105383503546*sin(5*2*pi*x/per)-0.000129446281085*cos(6*2*pi*x/per)-0.00604216845148*sin(6*2*pi*x/per)-0.00107155689917*cos(7*2*pi*x/per)-0.0034580055653*sin(7*2*pi*x/per)-0.00132212642833*cos(8*2*pi*x/per)-0.00190208677426*sin(8*2*pi*x/per)
+hyxc(x)=-0.00126817262939*cos(9*2*pi*x/per)-0.000952621220457*sin(9*2*pi*x/per)-0.00109490819503*cos(10*2*pi*x/per)-0.000378364867116*sin(10*2*pi*x/per)-0.00109490819503*cos(-10*2*pi*x/per)+0.000378364867116*sin(-10*2*pi*x/per)-0.00126817262939*cos(-9*2*pi*x/per)+0.000952621220457*sin(-9*2*pi*x/per)-0.00132212642833*cos(-8*2*pi*x/per)
+hyxd(x)=0.00190208677426*sin(-8*2*pi*x/per)-0.00107155689917*cos(-7*2*pi*x/per)+0.0034580055653*sin(-7*2*pi*x/per)-0.000129446281085*cos(-6*2*pi*x/per)+0.00604216845148*sin(-6*2*pi*x/per)+0.00234539031317*cos(-5*2*pi*x/per)+0.0105383503546*sin(-5*2*pi*x/per)
+
+hyx(x)=hyxa(x)+hyxb(x)+hyxc(x)+hyxd(x)+0.00832508094211*cos(-4*2*pi*x/per)+0.0192105796094*sin(-4*2*pi*x/per)+0.0229388247268*cos(-3*2*pi*x/per)+0.0396982260339*sin(-3*2*pi*x/per)+0.0601573274705*cos(-2*2*pi*x/per)+0.110560558974*sin(-2*2*pi*x/per)+0.00739984015195*cos(-1*2*pi*x/per)+0.645702252381*sin(-1*2*pi*x/per)
+
+hyya(x)=-0.00569218473228*cos(1*2*pi*x/per)+0.496694040293*sin(1*2*pi*x/per)-0.046274867285*cos(2*2*pi*x/per)+0.0850465838264*sin(2*2*pi*x/per)-0.0176452497899*cos(3*2*pi*x/per)+0.0305370969491*sin(3*2*pi*x/per)-0.006403908417*cos(4*2*pi*x/per)+0.0147773689303*sin(4*2*pi*x/per)-0.00180414639475*cos(5*2*pi*x/per)
+
+hyyb(x)=0.00810642334966*sin(5*2*pi*x/per)+9.95740623731e-05*cos(6*2*pi*x/per)+0.00464782188575*sin(6*2*pi*x/per)+0.000824274537822*cos(7*2*pi*x/per)+0.002660004281*sin(7*2*pi*x/per)+0.00101702032949*cos(8*2*pi*x/per)+0.0014631436725*sin(8*2*pi*x/per)
+
+hyyc(x)=0.000975517407223*cos(9*2*pi*x/per)+0.000732785554198*sin(9*2*pi*x/per)+0.000842237073099*cos(10*2*pi*x/per)+0.000291049897782*sin(10*2*pi*x/per)+0.000842237073099*cos(-10*2*pi*x/per)-0.000291049897782*sin(-10*2*pi*x/per)
+
+hyyd(x)=0.000975517407223*cos(-9*2*pi*x/per)-0.000732785554198*sin(-9*2*pi*x/per)+0.00101702032949*cos(-8*2*pi*x/per)-0.0014631436725*sin(-8*2*pi*x/per)+0.000824274537822*cos(-7*2*pi*x/per)-0.002660004281*sin(-7*2*pi*x/per)+9.95740623731e-05*cos(-6*2*pi*x/per)-0.00464782188575*sin(-6*2*pi*x/per)-0.00180414639475*cos(-5*2*pi*x/per)
+
+hyy(x)=hyya(x)+hyyb(x)+hyyc(x)+hyyd(x)-0.00810642334966*sin(-5*2*pi*x/per)-0.006403908417*cos(-4*2*pi*x/per)-0.0147773689303*sin(-4*2*pi*x/per)-0.0176452497899*cos(-3*2*pi*x/per)-0.0305370969491*sin(-3*2*pi*x/per)-0.046274867285*cos(-2*2*pi*x/per)-0.0850465838264*sin(-2*2*pi*x/per)-0.00569218473227*cos(-1*2*pi*x/per)-0.496694040293*sin(-1*2*pi*x/per)
+
+
+aux hxxaux=hxx(t)
+aux hxyaux=hxy(t)
+aux hyxaux=hyx(t)
+aux hyyaux=hyy(t)
+
+
+
+p tau=1
+p per=20
+
+#global 1 px-20 {px=0}
+#global 1 -px {px=20}
+
+#global 1 py-20 {py=0}
+#global 1 -py {py=20}
+
+#global 1 pz-20 {pz=0}
+#global 1 -pz {pz=20}
+
+aux p1=px-pz
+aux p2=py-pz
+
+px(0)=2
+py(0)=9.5
+pz(0)=7.
+
+@ xp=t,yp=px
+@ xlo=-1,xhi=100
+@ ylo=-1,yhi=21
+@ dt=.01,total=100
+
+@ Ds=0.01,Dsmin=0.00001,Dsmax=0.05,parmin=1,parmax=10
+
+d

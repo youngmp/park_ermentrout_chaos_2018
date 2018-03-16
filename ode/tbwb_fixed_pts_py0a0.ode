@@ -1,0 +1,35 @@
+# fixed points when 
+# degenerate mean field
+
+table hxx tbwb_hxx_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=50.0_gei=54.0_gie=13.0_gii=10.0_N=2.tab
+table hxy tbwb_hxy_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=50.0_gei=54.0_gie=13.0_gii=10.0_N=2.tab
+table hyx tbwb_hyx_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=50.0_gei=54.0_gie=13.0_gii=10.0_N=2.tab
+table hyy tbwb_hyy_fixed_eps=0.0025_mux=1.0_muy=1.0_gee=50.0_gei=54.0_gie=13.0_gii=10.0_N=2.tab
+
+# everything should be in [0,1)
+
+# replace the term hxx(px)+hxy(py+pz) with equation from rhs_phiz=0
+#repl=-(hyx(mod(-pz,1))+hyy(0)+hyx(mod(px-pz,1))+hyy(mod(py,1)))+hxx(0)+hxy(mod(pz,1))
+
+#px'=hxx(mod(-px,per))-hxx(0)+hxx(0)-hxx(mod(px,per))+hxy(mod(-px+pz,per))/tau-hxy(mod(pz,per))/tau+hxy(mod(py-px+pz,per))/tau-hxy(mod(py+pz,per))/tau
+py'=hyx(mod(-py-pz,per))-hyx(mod(-pz,per))+hyy(mod(-py,per))/tau-hyy(0)/tau+hyx(mod(px-py-pz,per))-hyx(mod(px-pz,per))+hyy(0)/tau-hyy(mod(py,per))/tau
+#pz'=hyx(mod(-pz,per))+hyy(0)/tau+hyx(mod(px-pz,per))+hyy(mod(py,per))/tau-hxx(0)-hxy(mod(pz,per))/tau-hxx(mod(px,per))-hxy(mod(py+pz,per))/tau
+
+
+p tau=1
+p per=20
+
+p px=0,pz=0
+
+#px(0)=1
+#py(0)=0
+#pz(0)=1.
+
+@ xp=t,yp=px
+@ xlo=-1,xhi=100
+@ ylo=-1,yhi=21
+@ dt=.01,total=100
+
+@ Ds=0.01,Dsmin=0.00001,Dsmax=0.05,parmin=1,parmax=20
+
+d
